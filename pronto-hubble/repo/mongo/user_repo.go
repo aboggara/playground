@@ -2,8 +2,6 @@ package mongo
 
 import (
 	"context"
-	"crypto/rand"
-	"encoding/hex"
 	"go.mongodb.org/mongo-driver/bson"
 	"log"
 	"pronto-hubble/api/v1/models"
@@ -17,7 +15,7 @@ type UserRepo struct {
 }
 
 func (r *UserRepo) Store(ctx context.Context, user *models.User) (string, error) {
-	id := randomHex(4)
+	id := RandomHex(4)
 	result, err := r.client.InsertOne(ctx, usersCollection, bson.M{"id": id, "name": user.Name, "role": user.Role,
 		"created" : time.Now().Unix()})
 
@@ -25,14 +23,6 @@ func (r *UserRepo) Store(ctx context.Context, user *models.User) (string, error)
 		return id, nil
 	}
 	return "", err
-}
-
-func randomHex(n int) string {
-	bytes := make([]byte, n)
-	if _, err := rand.Read(bytes); err != nil {
-		return ""
-	}
-	return hex.EncodeToString(bytes)
 }
 
 func (r *UserRepo) FindOne(ctx context.Context, id string) (*models.User, error) {

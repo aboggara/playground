@@ -10,10 +10,6 @@ type UserService struct {
 	userRepo repo.User
 }
 
-func InitUserService(userRepo repo.User) *UserService {
-	return &UserService {userRepo: userRepo}
-}
-
 func(service *UserService) CreateUser(ctx context.Context, user *models.User) (string, error) {
 	return service.userRepo.Store(ctx, user)
 }

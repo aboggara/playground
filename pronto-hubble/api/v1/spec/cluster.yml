@@ -1,0 +1,154 @@
+definitions:
+  cluster:
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: string
+        minLength: 3
+      name:
+        type: string
+        minLength: 1
+      created:
+        type: integer
+        format: 'int32'
+      deviceIds:
+        type: array
+        items:
+          type: string
+  deviceIds:
+    type: object
+    properties:
+      deviceIds:
+        type: array
+        items:
+          type: string
+paths:
+  /clusters:
+    get:
+      tags: ['clusters']
+      operationId: list
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/cluster"
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+    post:
+      tags: ['clusters']
+      operationId: create
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/cluster"
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: './common.yml#/id'
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+
+  /clusters/{id}:
+    parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+    get:
+      tags: ['clusters']
+      operationId: get
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: "#/definitions/cluster"
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+    put:
+      tags: ['clusters']
+      operationId: updateOne
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/cluster"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: "#/definitions/cluster"
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+    delete:
+      tags: ['clusters']
+      operationId: deleteOne
+      responses:
+        '204':
+          description: Deleted
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+
+  /clusters/{id}/join:
+    parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+    put:
+      tags: ['clusters']
+      operationId: join
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/deviceIds"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: "#/definitions/cluster"
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+
+  /clusters/{id}/leave:
+    parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+    put:
+      tags: ['clusters']
+      operationId: leave
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/deviceIds"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: "#/definitions/cluster"
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'

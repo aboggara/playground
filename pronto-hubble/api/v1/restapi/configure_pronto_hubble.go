@@ -6,8 +6,9 @@ import (
 	"crypto/tls"
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
 	"net/http"
+	"pronto-hubble/api/v1/restapi/operations/clusters"
+	"pronto-hubble/api/v1/restapi/operations/devices"
 	"pronto-hubble/handler"
 
 	"pronto-hubble/api/v1/restapi/operations"
@@ -34,20 +35,20 @@ func configureAPI(api *operations.ProntoHubbleAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	api.UsersCreateHandler = users.CreateHandlerFunc(handler.CreateUser)
-	api.UsersListHandler = users.ListHandlerFunc(handler.ListAllUsers)
-	api.UsersGetHandler = users.GetHandlerFunc(handler.GetUser)
+	//users
+	api.UsersCreateUserHandler = users.CreateUserHandlerFunc(handler.CreateUser)
+	api.UsersListUsersHandler = users.ListUsersHandlerFunc(handler.ListAllUsers)
+	api.UsersGetUserHandler = users.GetUserHandlerFunc(handler.GetUser)
 
-	if api.UsersDeleteOneHandler == nil {
-		api.UsersDeleteOneHandler = users.DeleteOneHandlerFunc(func(params users.DeleteOneParams) middleware.Responder {
-			return middleware.NotImplemented("operation users.DeleteOne has not yet been implemented")
-		})
-	}
-	if api.UsersUpdateOneHandler == nil {
-		api.UsersUpdateOneHandler = users.UpdateOneHandlerFunc(func(params users.UpdateOneParams) middleware.Responder {
-			return middleware.NotImplemented("operation users.UpdateOne has not yet been implemented")
-		})
-	}
+	//devices
+	api.DevicesCreateDeviceHandler = devices.CreateDeviceHandlerFunc(handler.CreateDevice)
+	api.DevicesListDevicesHandler = devices.ListDevicesHandlerFunc(handler.ListAllDevices)
+	api.DevicesGetDeviceHandler = devices.GetDeviceHandlerFunc(handler.GetDevice)
+
+	//clusters
+	api.ClustersCreateClusterHandler = clusters.CreateClusterHandlerFunc(handler.CreateCluster)
+	api.ClustersListClustersHandler = clusters.ListClustersHandlerFunc(handler.ListAllClusters)
+	api.ClustersGetClusterHandler = clusters.GetClusterHandlerFunc(handler.GetCluster)
 
 	api.ServerShutdown = func() {}
 

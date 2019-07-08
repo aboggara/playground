@@ -16,3 +16,11 @@ id:
   properties:
     id:
       type: string
+
+action:
+  type: object
+  required:
+    - action
+  properties:
+    action:
+      type: string

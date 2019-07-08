@@ -18,33 +18,33 @@ func getUserService() *service.UserService {
 	return serviceFactory.UserService
 }
 
-func CreateUser(params users.CreateParams) middleware.Responder {
+func CreateUser(params users.CreateUserParams) middleware.Responder {
 	id, err := userService.CreateUser(context.Background(), params.Body)
 	if id != "" {
-		return users.NewCreateCreated().WithPayload(&models.ID{ID: &id})
+		return users.NewCreateUserCreated().WithPayload(&models.ID{ID: &id})
 	} else {
 		errMsg := err.Error()
-		return users.NewCreateDefault(500).WithPayload(&models.Error{Message: &errMsg})
+		return users.NewCreateUserDefault(500).WithPayload(&models.Error{Message: &errMsg})
 	}
 }
 
-func ListAllUsers(params users.ListParams) middleware.Responder {
+func ListAllUsers(params users.ListUsersParams) middleware.Responder {
 	usersList, err := userService.FindAllUsers(context.Background())
 	if err != nil {
 		errMsg := err.Error()
-		return users.NewListDefault(500).WithPayload(&models.Error{Message: &errMsg})
+		return users.NewListUsersDefault(500).WithPayload(&models.Error{Message: &errMsg})
 	} else {
-		return users.NewListOK().WithPayload(usersList)
+		return users.NewListUsersOK().WithPayload(usersList)
 	}
 }
 
-func GetUser(params users.GetParams) middleware.Responder {
+func GetUser(params users.GetUserParams) middleware.Responder {
 	id := params.ID
 	user, err := userService.FindUser(context.Background(), id)
 	if err != nil {
 		errMsg := err.Error()
-		return users.NewGetDefault(500).WithPayload(&models.Error{Message: &errMsg})
+		return users.NewGetUserDefault(500).WithPayload(&models.Error{Message: &errMsg})
 	} else {
-		return users.NewGetOK().WithPayload(user)
+		return users.NewGetUserOK().WithPayload(user)
 	}
 }

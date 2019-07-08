@@ -8,6 +8,8 @@ import (
 
 type ServiceFactory struct {
 	UserService *UserService
+	DeviceService *DeviceService
+	ClusterService *ClusterService
 }
 
 func InitServiceFactory(ctx context.Context, dbConfig config.DbConfig) *ServiceFactory {
@@ -17,6 +19,12 @@ func InitServiceFactory(ctx context.Context, dbConfig config.DbConfig) *ServiceF
 	return &ServiceFactory{
 		UserService: &UserService{
 			repoFactory.User(),
+		},
+		DeviceService: &DeviceService{
+			repoFactory.Device(),
+		},
+		ClusterService: &ClusterService{
+			repoFactory.Cluster(),
 		},
 	}
 }

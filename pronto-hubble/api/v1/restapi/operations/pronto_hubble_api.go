@@ -19,6 +19,8 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
+	"pronto-hubble/api/v1/restapi/operations/clusters"
+	"pronto-hubble/api/v1/restapi/operations/devices"
 	"pronto-hubble/api/v1/restapi/operations/users"
 )
 
@@ -39,20 +41,56 @@ func NewProntoHubbleAPI(spec *loads.Document) *ProntoHubbleAPI {
 		BearerAuthenticator: security.BearerAuth,
 		JSONConsumer:        runtime.JSONConsumer(),
 		JSONProducer:        runtime.JSONProducer(),
-		UsersCreateHandler: users.CreateHandlerFunc(func(params users.CreateParams) middleware.Responder {
-			return middleware.NotImplemented("operation UsersCreate has not yet been implemented")
+		ClustersCreateClusterHandler: clusters.CreateClusterHandlerFunc(func(params clusters.CreateClusterParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersCreateCluster has not yet been implemented")
 		}),
-		UsersDeleteOneHandler: users.DeleteOneHandlerFunc(func(params users.DeleteOneParams) middleware.Responder {
-			return middleware.NotImplemented("operation UsersDeleteOne has not yet been implemented")
+		DevicesCreateDeviceHandler: devices.CreateDeviceHandlerFunc(func(params devices.CreateDeviceParams) middleware.Responder {
+			return middleware.NotImplemented("operation DevicesCreateDevice has not yet been implemented")
 		}),
-		UsersGetHandler: users.GetHandlerFunc(func(params users.GetParams) middleware.Responder {
-			return middleware.NotImplemented("operation UsersGet has not yet been implemented")
+		UsersCreateUserHandler: users.CreateUserHandlerFunc(func(params users.CreateUserParams) middleware.Responder {
+			return middleware.NotImplemented("operation UsersCreateUser has not yet been implemented")
 		}),
-		UsersListHandler: users.ListHandlerFunc(func(params users.ListParams) middleware.Responder {
-			return middleware.NotImplemented("operation UsersList has not yet been implemented")
+		ClustersDeleteClusterHandler: clusters.DeleteClusterHandlerFunc(func(params clusters.DeleteClusterParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersDeleteCluster has not yet been implemented")
 		}),
-		UsersUpdateOneHandler: users.UpdateOneHandlerFunc(func(params users.UpdateOneParams) middleware.Responder {
-			return middleware.NotImplemented("operation UsersUpdateOne has not yet been implemented")
+		DevicesDeleteDeviceHandler: devices.DeleteDeviceHandlerFunc(func(params devices.DeleteDeviceParams) middleware.Responder {
+			return middleware.NotImplemented("operation DevicesDeleteDevice has not yet been implemented")
+		}),
+		UsersDeleteUserHandler: users.DeleteUserHandlerFunc(func(params users.DeleteUserParams) middleware.Responder {
+			return middleware.NotImplemented("operation UsersDeleteUser has not yet been implemented")
+		}),
+		ClustersGetClusterHandler: clusters.GetClusterHandlerFunc(func(params clusters.GetClusterParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersGetCluster has not yet been implemented")
+		}),
+		DevicesGetDeviceHandler: devices.GetDeviceHandlerFunc(func(params devices.GetDeviceParams) middleware.Responder {
+			return middleware.NotImplemented("operation DevicesGetDevice has not yet been implemented")
+		}),
+		UsersGetUserHandler: users.GetUserHandlerFunc(func(params users.GetUserParams) middleware.Responder {
+			return middleware.NotImplemented("operation UsersGetUser has not yet been implemented")
+		}),
+		ClustersJoinHandler: clusters.JoinHandlerFunc(func(params clusters.JoinParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersJoin has not yet been implemented")
+		}),
+		ClustersLeaveHandler: clusters.LeaveHandlerFunc(func(params clusters.LeaveParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersLeave has not yet been implemented")
+		}),
+		ClustersListClustersHandler: clusters.ListClustersHandlerFunc(func(params clusters.ListClustersParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersListClusters has not yet been implemented")
+		}),
+		DevicesListDevicesHandler: devices.ListDevicesHandlerFunc(func(params devices.ListDevicesParams) middleware.Responder {
+			return middleware.NotImplemented("operation DevicesListDevices has not yet been implemented")
+		}),
+		UsersListUsersHandler: users.ListUsersHandlerFunc(func(params users.ListUsersParams) middleware.Responder {
+			return middleware.NotImplemented("operation UsersListUsers has not yet been implemented")
+		}),
+		ClustersUpdateClusterHandler: clusters.UpdateClusterHandlerFunc(func(params clusters.UpdateClusterParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersUpdateCluster has not yet been implemented")
+		}),
+		DevicesUpdateDeviceHandler: devices.UpdateDeviceHandlerFunc(func(params devices.UpdateDeviceParams) middleware.Responder {
+			return middleware.NotImplemented("operation DevicesUpdateDevice has not yet been implemented")
+		}),
+		UsersUpdateUserHandler: users.UpdateUserHandlerFunc(func(params users.UpdateUserParams) middleware.Responder {
+			return middleware.NotImplemented("operation UsersUpdateUser has not yet been implemented")
 		}),
 	}
 }
@@ -85,16 +123,40 @@ type ProntoHubbleAPI struct {
 	// JSONProducer registers a producer for a "application/json" mime type
 	JSONProducer runtime.Producer
 
-	// UsersCreateHandler sets the operation handler for the create operation
-	UsersCreateHandler users.CreateHandler
-	// UsersDeleteOneHandler sets the operation handler for the delete one operation
-	UsersDeleteOneHandler users.DeleteOneHandler
-	// UsersGetHandler sets the operation handler for the get operation
-	UsersGetHandler users.GetHandler
-	// UsersListHandler sets the operation handler for the list operation
-	UsersListHandler users.ListHandler
-	// UsersUpdateOneHandler sets the operation handler for the update one operation
-	UsersUpdateOneHandler users.UpdateOneHandler
+	// ClustersCreateClusterHandler sets the operation handler for the create cluster operation
+	ClustersCreateClusterHandler clusters.CreateClusterHandler
+	// DevicesCreateDeviceHandler sets the operation handler for the create device operation
+	DevicesCreateDeviceHandler devices.CreateDeviceHandler
+	// UsersCreateUserHandler sets the operation handler for the create user operation
+	UsersCreateUserHandler users.CreateUserHandler
+	// ClustersDeleteClusterHandler sets the operation handler for the delete cluster operation
+	ClustersDeleteClusterHandler clusters.DeleteClusterHandler
+	// DevicesDeleteDeviceHandler sets the operation handler for the delete device operation
+	DevicesDeleteDeviceHandler devices.DeleteDeviceHandler
+	// UsersDeleteUserHandler sets the operation handler for the delete user operation
+	UsersDeleteUserHandler users.DeleteUserHandler
+	// ClustersGetClusterHandler sets the operation handler for the get cluster operation
+	ClustersGetClusterHandler clusters.GetClusterHandler
+	// DevicesGetDeviceHandler sets the operation handler for the get device operation
+	DevicesGetDeviceHandler devices.GetDeviceHandler
+	// UsersGetUserHandler sets the operation handler for the get user operation
+	UsersGetUserHandler users.GetUserHandler
+	// ClustersJoinHandler sets the operation handler for the join operation
+	ClustersJoinHandler clusters.JoinHandler
+	// ClustersLeaveHandler sets the operation handler for the leave operation
+	ClustersLeaveHandler clusters.LeaveHandler
+	// ClustersListClustersHandler sets the operation handler for the list clusters operation
+	ClustersListClustersHandler clusters.ListClustersHandler
+	// DevicesListDevicesHandler sets the operation handler for the list devices operation
+	DevicesListDevicesHandler devices.ListDevicesHandler
+	// UsersListUsersHandler sets the operation handler for the list users operation
+	UsersListUsersHandler users.ListUsersHandler
+	// ClustersUpdateClusterHandler sets the operation handler for the update cluster operation
+	ClustersUpdateClusterHandler clusters.UpdateClusterHandler
+	// DevicesUpdateDeviceHandler sets the operation handler for the update device operation
+	DevicesUpdateDeviceHandler devices.UpdateDeviceHandler
+	// UsersUpdateUserHandler sets the operation handler for the update user operation
+	UsersUpdateUserHandler users.UpdateUserHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -158,24 +220,72 @@ func (o *ProntoHubbleAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
-	if o.UsersCreateHandler == nil {
-		unregistered = append(unregistered, "users.CreateHandler")
+	if o.ClustersCreateClusterHandler == nil {
+		unregistered = append(unregistered, "clusters.CreateClusterHandler")
 	}
 
-	if o.UsersDeleteOneHandler == nil {
-		unregistered = append(unregistered, "users.DeleteOneHandler")
+	if o.DevicesCreateDeviceHandler == nil {
+		unregistered = append(unregistered, "devices.CreateDeviceHandler")
 	}
 
-	if o.UsersGetHandler == nil {
-		unregistered = append(unregistered, "users.GetHandler")
+	if o.UsersCreateUserHandler == nil {
+		unregistered = append(unregistered, "users.CreateUserHandler")
 	}
 
-	if o.UsersListHandler == nil {
-		unregistered = append(unregistered, "users.ListHandler")
+	if o.ClustersDeleteClusterHandler == nil {
+		unregistered = append(unregistered, "clusters.DeleteClusterHandler")
 	}
 
-	if o.UsersUpdateOneHandler == nil {
-		unregistered = append(unregistered, "users.UpdateOneHandler")
+	if o.DevicesDeleteDeviceHandler == nil {
+		unregistered = append(unregistered, "devices.DeleteDeviceHandler")
+	}
+
+	if o.UsersDeleteUserHandler == nil {
+		unregistered = append(unregistered, "users.DeleteUserHandler")
+	}
+
+	if o.ClustersGetClusterHandler == nil {
+		unregistered = append(unregistered, "clusters.GetClusterHandler")
+	}
+
+	if o.DevicesGetDeviceHandler == nil {
+		unregistered = append(unregistered, "devices.GetDeviceHandler")
+	}
+
+	if o.UsersGetUserHandler == nil {
+		unregistered = append(unregistered, "users.GetUserHandler")
+	}
+
+	if o.ClustersJoinHandler == nil {
+		unregistered = append(unregistered, "clusters.JoinHandler")
+	}
+
+	if o.ClustersLeaveHandler == nil {
+		unregistered = append(unregistered, "clusters.LeaveHandler")
+	}
+
+	if o.ClustersListClustersHandler == nil {
+		unregistered = append(unregistered, "clusters.ListClustersHandler")
+	}
+
+	if o.DevicesListDevicesHandler == nil {
+		unregistered = append(unregistered, "devices.ListDevicesHandler")
+	}
+
+	if o.UsersListUsersHandler == nil {
+		unregistered = append(unregistered, "users.ListUsersHandler")
+	}
+
+	if o.ClustersUpdateClusterHandler == nil {
+		unregistered = append(unregistered, "clusters.UpdateClusterHandler")
+	}
+
+	if o.DevicesUpdateDeviceHandler == nil {
+		unregistered = append(unregistered, "devices.UpdateDeviceHandler")
+	}
+
+	if o.UsersUpdateUserHandler == nil {
+		unregistered = append(unregistered, "users.UpdateUserHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -279,27 +389,87 @@ func (o *ProntoHubbleAPI) initHandlerCache() {
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/users"] = users.NewCreate(o.context, o.UsersCreateHandler)
+	o.handlers["POST"]["/clusters"] = clusters.NewCreateCluster(o.context, o.ClustersCreateClusterHandler)
+
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/devices"] = devices.NewCreateDevice(o.context, o.DevicesCreateDeviceHandler)
+
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/users"] = users.NewCreateUser(o.context, o.UsersCreateUserHandler)
 
 	if o.handlers["DELETE"] == nil {
 		o.handlers["DELETE"] = make(map[string]http.Handler)
 	}
-	o.handlers["DELETE"]["/users/{id}"] = users.NewDeleteOne(o.context, o.UsersDeleteOneHandler)
+	o.handlers["DELETE"]["/clusters/{id}"] = clusters.NewDeleteCluster(o.context, o.ClustersDeleteClusterHandler)
+
+	if o.handlers["DELETE"] == nil {
+		o.handlers["DELETE"] = make(map[string]http.Handler)
+	}
+	o.handlers["DELETE"]["/devices/{id}"] = devices.NewDeleteDevice(o.context, o.DevicesDeleteDeviceHandler)
+
+	if o.handlers["DELETE"] == nil {
+		o.handlers["DELETE"] = make(map[string]http.Handler)
+	}
+	o.handlers["DELETE"]["/users/{id}"] = users.NewDeleteUser(o.context, o.UsersDeleteUserHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/users/{id}"] = users.NewGet(o.context, o.UsersGetHandler)
+	o.handlers["GET"]["/clusters/{id}"] = clusters.NewGetCluster(o.context, o.ClustersGetClusterHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/users"] = users.NewList(o.context, o.UsersListHandler)
+	o.handlers["GET"]["/devices/{id}"] = devices.NewGetDevice(o.context, o.DevicesGetDeviceHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/users/{id}"] = users.NewGetUser(o.context, o.UsersGetUserHandler)
 
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
-	o.handlers["PUT"]["/users/{id}"] = users.NewUpdateOne(o.context, o.UsersUpdateOneHandler)
+	o.handlers["PUT"]["/clusters/{id}/join"] = clusters.NewJoin(o.context, o.ClustersJoinHandler)
+
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/clusters/{id}/leave"] = clusters.NewLeave(o.context, o.ClustersLeaveHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/clusters"] = clusters.NewListClusters(o.context, o.ClustersListClustersHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/devices"] = devices.NewListDevices(o.context, o.DevicesListDevicesHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/users"] = users.NewListUsers(o.context, o.UsersListUsersHandler)
+
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/clusters/{id}"] = clusters.NewUpdateCluster(o.context, o.ClustersUpdateClusterHandler)
+
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/devices/{id}"] = devices.NewUpdateDevice(o.context, o.DevicesUpdateDeviceHandler)
+
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/users/{id}"] = users.NewUpdateUser(o.context, o.UsersUpdateUserHandler)
 
 }
 
