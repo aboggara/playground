@@ -1,0 +1,18 @@
+error:
+  type: object
+  required:
+    - message
+  properties:
+    code:
+      type: integer
+      format: int64
+    message:
+      type: string
+
+id:
+  type: object
+  required:
+    - id
+  properties:
+    id:
+      type: string

@@ -1,0 +1,98 @@
+definitions:
+  user:
+    type: object
+    required:
+      - name
+    properties:
+      id:
+        type: string
+        readOnly: true
+      name:
+        type: string
+        minLength: 1
+      role:
+        type: string
+        default: 'user'
+      created:
+        type: integer
+        format: 'int32'
+
+paths:
+  /users:
+    get:
+      tags: ['users']
+      operationId: list
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/user"
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+    post:
+      tags: ['users']
+      operationId: create
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/user"
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: './common.yml#/id'
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+
+  /users/{id}:
+    parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+    get:
+      tags: ['users']
+      operationId: get
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: "#/definitions/user"
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+    put:
+      tags: ['users']
+      operationId: updateOne
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/user"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: "#/definitions/user"
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'
+    delete:
+      tags: ['users']
+      operationId: deleteOne
+      responses:
+        '204':
+          description: Deleted
+        default:
+          description: error
+          schema:
+            $ref: './common.yml#/error'

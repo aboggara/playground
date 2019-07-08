@@ -1,0 +1,22 @@
+info:
+  description: Hubble service for Pronto
+  title: Pronto-Hubble
+  version: 0.1.0
+produces:
+  - application/json
+consumes:
+  - application/json
+schemes:
+  - http
+swagger: "2.0"
+
+basePath: /pronto/v1
+
+definitions:
+  user:
+    $ref: './user.yml#/definitions/user'
+paths:
+  /users:
+    $ref: './user.yml#/paths/~1users'
+  /users/{id}:
+    $ref: './user.yml#/paths/~1users~1{id}'
