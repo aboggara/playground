@@ -44,9 +44,6 @@ func NewProntoHubbleAPI(spec *loads.Document) *ProntoHubbleAPI {
 		ClustersCreateClusterHandler: clusters.CreateClusterHandlerFunc(func(params clusters.CreateClusterParams) middleware.Responder {
 			return middleware.NotImplemented("operation ClustersCreateCluster has not yet been implemented")
 		}),
-		DevicesCreateDeviceHandler: devices.CreateDeviceHandlerFunc(func(params devices.CreateDeviceParams) middleware.Responder {
-			return middleware.NotImplemented("operation DevicesCreateDevice has not yet been implemented")
-		}),
 		UsersCreateUserHandler: users.CreateUserHandlerFunc(func(params users.CreateUserParams) middleware.Responder {
 			return middleware.NotImplemented("operation UsersCreateUser has not yet been implemented")
 		}),
@@ -68,11 +65,11 @@ func NewProntoHubbleAPI(spec *loads.Document) *ProntoHubbleAPI {
 		UsersGetUserHandler: users.GetUserHandlerFunc(func(params users.GetUserParams) middleware.Responder {
 			return middleware.NotImplemented("operation UsersGetUser has not yet been implemented")
 		}),
-		ClustersJoinHandler: clusters.JoinHandlerFunc(func(params clusters.JoinParams) middleware.Responder {
-			return middleware.NotImplemented("operation ClustersJoin has not yet been implemented")
+		ClustersJoinClusterHandler: clusters.JoinClusterHandlerFunc(func(params clusters.JoinClusterParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersJoinCluster has not yet been implemented")
 		}),
-		ClustersLeaveHandler: clusters.LeaveHandlerFunc(func(params clusters.LeaveParams) middleware.Responder {
-			return middleware.NotImplemented("operation ClustersLeave has not yet been implemented")
+		ClustersLeaveClusterHandler: clusters.LeaveClusterHandlerFunc(func(params clusters.LeaveClusterParams) middleware.Responder {
+			return middleware.NotImplemented("operation ClustersLeaveCluster has not yet been implemented")
 		}),
 		ClustersListClustersHandler: clusters.ListClustersHandlerFunc(func(params clusters.ListClustersParams) middleware.Responder {
 			return middleware.NotImplemented("operation ClustersListClusters has not yet been implemented")
@@ -82,6 +79,9 @@ func NewProntoHubbleAPI(spec *loads.Document) *ProntoHubbleAPI {
 		}),
 		UsersListUsersHandler: users.ListUsersHandlerFunc(func(params users.ListUsersParams) middleware.Responder {
 			return middleware.NotImplemented("operation UsersListUsers has not yet been implemented")
+		}),
+		DevicesRegisterDeviceHandler: devices.RegisterDeviceHandlerFunc(func(params devices.RegisterDeviceParams) middleware.Responder {
+			return middleware.NotImplemented("operation DevicesRegisterDevice has not yet been implemented")
 		}),
 		ClustersUpdateClusterHandler: clusters.UpdateClusterHandlerFunc(func(params clusters.UpdateClusterParams) middleware.Responder {
 			return middleware.NotImplemented("operation ClustersUpdateCluster has not yet been implemented")
@@ -125,8 +125,6 @@ type ProntoHubbleAPI struct {
 
 	// ClustersCreateClusterHandler sets the operation handler for the create cluster operation
 	ClustersCreateClusterHandler clusters.CreateClusterHandler
-	// DevicesCreateDeviceHandler sets the operation handler for the create device operation
-	DevicesCreateDeviceHandler devices.CreateDeviceHandler
 	// UsersCreateUserHandler sets the operation handler for the create user operation
 	UsersCreateUserHandler users.CreateUserHandler
 	// ClustersDeleteClusterHandler sets the operation handler for the delete cluster operation
@@ -141,16 +139,18 @@ type ProntoHubbleAPI struct {
 	DevicesGetDeviceHandler devices.GetDeviceHandler
 	// UsersGetUserHandler sets the operation handler for the get user operation
 	UsersGetUserHandler users.GetUserHandler
-	// ClustersJoinHandler sets the operation handler for the join operation
-	ClustersJoinHandler clusters.JoinHandler
-	// ClustersLeaveHandler sets the operation handler for the leave operation
-	ClustersLeaveHandler clusters.LeaveHandler
+	// ClustersJoinClusterHandler sets the operation handler for the join cluster operation
+	ClustersJoinClusterHandler clusters.JoinClusterHandler
+	// ClustersLeaveClusterHandler sets the operation handler for the leave cluster operation
+	ClustersLeaveClusterHandler clusters.LeaveClusterHandler
 	// ClustersListClustersHandler sets the operation handler for the list clusters operation
 	ClustersListClustersHandler clusters.ListClustersHandler
 	// DevicesListDevicesHandler sets the operation handler for the list devices operation
 	DevicesListDevicesHandler devices.ListDevicesHandler
 	// UsersListUsersHandler sets the operation handler for the list users operation
 	UsersListUsersHandler users.ListUsersHandler
+	// DevicesRegisterDeviceHandler sets the operation handler for the register device operation
+	DevicesRegisterDeviceHandler devices.RegisterDeviceHandler
 	// ClustersUpdateClusterHandler sets the operation handler for the update cluster operation
 	ClustersUpdateClusterHandler clusters.UpdateClusterHandler
 	// DevicesUpdateDeviceHandler sets the operation handler for the update device operation
@@ -224,10 +224,6 @@ func (o *ProntoHubbleAPI) Validate() error {
 		unregistered = append(unregistered, "clusters.CreateClusterHandler")
 	}
 
-	if o.DevicesCreateDeviceHandler == nil {
-		unregistered = append(unregistered, "devices.CreateDeviceHandler")
-	}
-
 	if o.UsersCreateUserHandler == nil {
 		unregistered = append(unregistered, "users.CreateUserHandler")
 	}
@@ -256,12 +252,12 @@ func (o *ProntoHubbleAPI) Validate() error {
 		unregistered = append(unregistered, "users.GetUserHandler")
 	}
 
-	if o.ClustersJoinHandler == nil {
-		unregistered = append(unregistered, "clusters.JoinHandler")
+	if o.ClustersJoinClusterHandler == nil {
+		unregistered = append(unregistered, "clusters.JoinClusterHandler")
 	}
 
-	if o.ClustersLeaveHandler == nil {
-		unregistered = append(unregistered, "clusters.LeaveHandler")
+	if o.ClustersLeaveClusterHandler == nil {
+		unregistered = append(unregistered, "clusters.LeaveClusterHandler")
 	}
 
 	if o.ClustersListClustersHandler == nil {
@@ -274,6 +270,10 @@ func (o *ProntoHubbleAPI) Validate() error {
 
 	if o.UsersListUsersHandler == nil {
 		unregistered = append(unregistered, "users.ListUsersHandler")
+	}
+
+	if o.DevicesRegisterDeviceHandler == nil {
+		unregistered = append(unregistered, "devices.RegisterDeviceHandler")
 	}
 
 	if o.ClustersUpdateClusterHandler == nil {
@@ -394,11 +394,6 @@ func (o *ProntoHubbleAPI) initHandlerCache() {
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/devices"] = devices.NewCreateDevice(o.context, o.DevicesCreateDeviceHandler)
-
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
 	o.handlers["POST"]["/users"] = users.NewCreateUser(o.context, o.UsersCreateUserHandler)
 
 	if o.handlers["DELETE"] == nil {
@@ -434,12 +429,12 @@ func (o *ProntoHubbleAPI) initHandlerCache() {
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
-	o.handlers["PUT"]["/clusters/{id}/join"] = clusters.NewJoin(o.context, o.ClustersJoinHandler)
+	o.handlers["PUT"]["/clusters/{id}/join"] = clusters.NewJoinCluster(o.context, o.ClustersJoinClusterHandler)
 
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
-	o.handlers["PUT"]["/clusters/{id}/leave"] = clusters.NewLeave(o.context, o.ClustersLeaveHandler)
+	o.handlers["PUT"]["/clusters/{id}/leave"] = clusters.NewLeaveCluster(o.context, o.ClustersLeaveClusterHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
@@ -455,6 +450,11 @@ func (o *ProntoHubbleAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/users"] = users.NewListUsers(o.context, o.UsersListUsersHandler)
+
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/devices"] = devices.NewRegisterDevice(o.context, o.DevicesRegisterDeviceHandler)
 
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)

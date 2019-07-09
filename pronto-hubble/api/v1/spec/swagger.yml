@@ -39,7 +39,7 @@ paths:
             $ref: './common.yml#/error'
     post:
       tags: ['devices']
-      operationId: createDevice
+      operationId: registerDevice
       parameters:
         - name: body
           in: body
@@ -188,7 +188,7 @@ paths:
         required: true
     put:
       tags: ['clusters']
-      operationId: join
+      operationId: joinCluster
       parameters:
         - name: body
           in: body
@@ -212,7 +212,7 @@ paths:
         required: true
     put:
       tags: ['clusters']
-      operationId: leave
+      operationId: leaveCluster
       parameters:
         - name: body
           in: body

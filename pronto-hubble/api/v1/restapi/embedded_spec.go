@@ -170,7 +170,7 @@ func init() {
         "tags": [
           "clusters"
         ],
-        "operationId": "join",
+        "operationId": "joinCluster",
         "parameters": [
           {
             "name": "body",
@@ -209,7 +209,7 @@ func init() {
         "tags": [
           "clusters"
         ],
-        "operationId": "leave",
+        "operationId": "leaveCluster",
         "parameters": [
           {
             "name": "body",
@@ -271,7 +271,7 @@ func init() {
         "tags": [
           "devices"
         ],
-        "operationId": "createDevice",
+        "operationId": "registerDevice",
         "parameters": [
           {
             "name": "body",
@@ -672,7 +672,7 @@ func init() {
         "tags": [
           "clusters"
         ],
-        "operationId": "join",
+        "operationId": "joinCluster",
         "parameters": [
           {
             "name": "body",
@@ -711,7 +711,7 @@ func init() {
         "tags": [
           "clusters"
         ],
-        "operationId": "leave",
+        "operationId": "leaveCluster",
         "parameters": [
           {
             "name": "body",
@@ -773,7 +773,7 @@ func init() {
         "tags": [
           "devices"
         ],
-        "operationId": "createDevice",
+        "operationId": "registerDevice",
         "parameters": [
           {
             "name": "body",
@@ -1010,7 +1010,6 @@ func init() {
     "cluster": {
       "type": "object",
       "required": [
-        "id",
         "name"
       ],
       "properties": {
@@ -1050,7 +1049,7 @@ func init() {
           "minLength": 3
         },
         "metaData": {
-          "type": "string",
+          "type": "object",
           "additionalProperties": {
             "type": "string"
           }

@@ -41,7 +41,7 @@ func configureAPI(api *operations.ProntoHubbleAPI) http.Handler {
 	api.UsersGetUserHandler = users.GetUserHandlerFunc(handler.GetUser)
 
 	//devices
-	api.DevicesCreateDeviceHandler = devices.CreateDeviceHandlerFunc(handler.CreateDevice)
+	api.DevicesRegisterDeviceHandler = devices.RegisterDeviceHandlerFunc(handler.RegisterDevice)
 	api.DevicesListDevicesHandler = devices.ListDevicesHandlerFunc(handler.ListAllDevices)
 	api.DevicesGetDeviceHandler = devices.GetDeviceHandlerFunc(handler.GetDevice)
 
@@ -49,6 +49,8 @@ func configureAPI(api *operations.ProntoHubbleAPI) http.Handler {
 	api.ClustersCreateClusterHandler = clusters.CreateClusterHandlerFunc(handler.CreateCluster)
 	api.ClustersListClustersHandler = clusters.ListClustersHandlerFunc(handler.ListAllClusters)
 	api.ClustersGetClusterHandler = clusters.GetClusterHandlerFunc(handler.GetCluster)
+	api.ClustersJoinClusterHandler = clusters.JoinClusterHandlerFunc(handler.JoinCluster)
+	api.ClustersLeaveClusterHandler = clusters.LeaveClusterHandlerFunc(handler.LeaveCluster)
 
 	api.ServerShutdown = func() {}
 
